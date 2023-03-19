@@ -5992,7 +5992,7 @@ select.selectpicker {
 }
 
 video {
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
 }
 
