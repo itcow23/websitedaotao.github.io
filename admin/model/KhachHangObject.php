@@ -7,6 +7,8 @@ class KhachHangObject{
     private $gioiTinh;
     private $soDienThoai;
     private $diaChi;
+    private $maTK;
+    private $level;
 
     public function __construct($row){
         $this->maKH = $row['maKH'] ?? '';
@@ -23,6 +25,13 @@ class KhachHangObject{
 
     public function set_maKH($var){
         $this->maKH = $var;
+    }
+    public function get_maTK(){
+        return $this->maTK;
+    }
+
+    public function set_maTK($var){
+        $this->maTK = $var;
     }
     public function get_hoTen(){
         return $this->hoTen;

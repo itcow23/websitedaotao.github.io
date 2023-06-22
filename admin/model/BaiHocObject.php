@@ -6,6 +6,10 @@ class BaiHocObject{
     private $tieuDe;
     private $moTa;
     private $video;
+    private $noiDungKhoaHoc;
+    private $tenKhoaHoc;
+    private $maKhoaHoc;
+    private $maNoiDung;
 
     public function __construct($row){
         $this->maBaiHoc = $row['maBaiHoc'] ?? '';
@@ -13,6 +17,10 @@ class BaiHocObject{
         $this->tieuDe = $row['tieuDe'];
         $this->moTa = $row['moTa'];
         $this->video = $row['video'];
+        $this->noiDungKhoaHoc = $row['noiDungKhoaHoc'] ?? " ";
+        $this->tenKhoaHoc = $row['tenKhoaHoc'] ?? " ";
+        $this->maKhoaHoc = $row['maKhoaHoc'];
+        $this->maNoiDung = $row['maNoiDung'];
     }
 
     public function get_maBaiHoc(){
@@ -44,5 +52,29 @@ class BaiHocObject{
     }
     public function set_video($var){
         $this->video = $var;
+    }
+    public function get_noiDungKhoaHoc(){
+        return $this->noiDungKhoaHoc;
+    }
+    public function set_noiDungKhoaHoc($var){
+        $this->noiDungKhoaHoc = $var;
+    }
+    public function get_tenKhoaHoc(){
+        return $this->tenKhoaHoc;
+    }
+    public function set_tenKhoaHoc($var){
+        $this->tenKhoaHoc = $var;
+    }
+    public function get_maKhoaHoc(){
+        return $this->maKhoaHoc;
+    }
+    public function set_maKhoaHoc($var){
+        $this->maKhoaHoc = $var;
+    }
+    public function get_maNoiDung(){
+        return $this->maNoiDung;
+    }
+    public function set_maNoiDung($var){
+        $this->maNoiDung = $var;
     }
 }

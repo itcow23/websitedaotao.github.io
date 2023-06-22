@@ -14,6 +14,17 @@ class KhachHang{
         }
         return $arr;
     }
+    public function GV(){
+        $sql = "select khachhang.*,taikhoan.id from KHACHHANG inner join taikhoan on khachhang.maKH=taikhoan.maKH_TK where taikhoan.level='2'";
+        $result = (new Connection())->select($sql);
+        $arr=[];
+
+        foreach($result as $row ){
+            $object = new KhachHangObject($row);
+            $arr[]=$object;
+        }
+        return $arr;
+    }
     public function create($params){
         $object=new KhachHangObject($params);
         $sql = "insert into KHACHHANG(hoTen,ngaySinh,gioiTinh,soDienThoai,diaChi) 

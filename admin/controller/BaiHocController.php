@@ -8,6 +8,10 @@ class BaiHocController {
     }
 
     public function create() {
+        require 'model/KhoaHoc.php';
+        $khoahocs = (new KhoaHoc())->all();
+        require 'model/NoiDungKhoaHoc.php';
+        $noidungs = (new NoiDungKhoaHoc())->all();
         require 'view/BaiHoc/create.php';
     }
 
@@ -20,6 +24,10 @@ class BaiHocController {
         $maBaiHoc = $_GET['maBaiHoc'];
         require 'model/BaiHoc.php';
         $each = (new BaiHoc())->find($maBaiHoc);
+        require 'model/KhoaHoc.php';
+        $khoahocs = (new KhoaHoc())->all();
+        require 'model/NoiDungKhoaHoc.php';
+        $noidungs = (new NoiDungKhoaHoc())->all();
         require 'view/BaiHoc/edit.php';
     }
     public function update() {

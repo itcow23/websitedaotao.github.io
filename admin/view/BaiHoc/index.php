@@ -81,6 +81,13 @@
                     </li>
 
                     <li class="side-nav-item">
+                        <a href="index.php?controller=noidung" class="side-nav-link">
+                            <i class="uil-calender"></i>
+                            <span> Nội Dung </span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-item">
                         <a href="index.php?controller=baihoc" class="side-nav-link">
                             <i class="uil-comments-alt"></i>
                             <span> Bài Học </span>
@@ -88,9 +95,23 @@
                     </li>
 
                     <li class="side-nav-item">
+                        <a href="index.php?controller=lop" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Lớp Học </span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-item">
                         <a href="index.php?controller=khachhang" class="side-nav-link">
                             <i class="uil-comments-alt"></i>
                             <span> Khách Hàng </span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a href="index.php?controller=taikhoan" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Tài Khoản </span>
                         </a>
                     </li>
 
@@ -474,6 +495,8 @@
                                     <table class="table table-striped table-centered mb-0">
                                     <tr>
                                         <th>Mã</th>
+                                        <th>Tên Khóa Học</th>
+                                        <th>Nội Dung</th>
                                         <th>Tên bài học</th>
                                         <th>Tiêu để</th>
                                         <th>Mô tả</th>
@@ -485,6 +508,8 @@
                                     <?php foreach($arr as $each): ?>
                                         <tr>
                                             <td><?php echo $each->get_maBaiHoc() ?></td>
+                                            <td><?php echo $each->get_tenKhoaHoc() ?></td>
+                                            <td><?php echo $each->get_noiDungKhoaHoc() ?></td>
                                             <td><?php echo $each->get_tenBaiHoc()  ?></td>
                                             <td><?php echo $each->get_tieuDe() ?></td>
                                             <td><?php  echo $each->get_moTa()  ?></td>

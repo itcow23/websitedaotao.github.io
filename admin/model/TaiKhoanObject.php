@@ -5,12 +5,14 @@ class TaiKhoanObject{
     private $email;
     private $matKhau;
     private $maKH_TK;
+    private $level;
 
     public function __construct($row){
         $this->id = $row['id'] ?? '';
         $this->email = $row['email'];
         $this->matKhau = $row['matKhau'];
         $this->maKH_TK = $row['maKH_TK'];
+        $this->level = $row['level'];
     }
 
     public function get_id(){
@@ -36,5 +38,11 @@ class TaiKhoanObject{
     }
     public function set_maKH_TK($var){
         $this->maKH_TK = $var;
+    }
+    public function get_level(){
+        return $this->level;
+    }
+    public function set_level($var){
+        $this->level = $var;
     }
 }

@@ -6,6 +6,9 @@ class KhoaHocObject{
     private $moTa;
     private $thoiGian;
     private $anh;
+    private $photo;
+    private $photo_new;
+    private $photo_old;
     private $trangThai;
 
     public function __construct($row){
@@ -13,7 +16,10 @@ class KhoaHocObject{
         $this->tenKhoaHoc = $row['tenKhoaHoc'];
         $this->moTa = $row['moTa'];
         $this->thoiGian = $row['thoiGian'];
-        $this->anh = $row['anh'];
+        $this->photo_new = $_FILES['anhMoi'] ?? "";
+        $this->photo_old = $row['anhCu'] ?? " ";
+        $this->anh = $row['anh']?? " ";
+        $this->photo = $_FILES['anh']?? " ";
         $this->trangThai = $row['trangThai'];
     }
 
@@ -28,7 +34,7 @@ class KhoaHocObject{
         return $this->tenKhoaHoc;
     }
 
-    public function set_tenkhoaHoc($var){
+    public function set_tenKhoaHoc($var){
         $this->tenKhoaHoc = $var;
     }
     public function get_moTa(){
@@ -46,6 +52,20 @@ class KhoaHocObject{
     }
     public function get_anh(){
         return $this->anh;
+    }
+    public function set_anh($var){
+        $this-> anh= $var;
+    }
+    public function get_photo(){
+        return $this->photo;
+    }
+    public function get_photo_new()
+    {
+        return $this->photo_new;
+    }
+    public function get_photo_old()
+    {
+        return $this->photo_old;;
     }
     public function get_trangThai(){
         return $this->trangThai;

@@ -5,7 +5,9 @@ require "model/BaiHocObject.php";
 
 class BaiHoc{
     public function all(){
-        $sql = "select * from BAIHOC";
+        $sql = "select baihoc.*, noidungkhoahoc.noiDungKhoaHoc as noiDungKhoaHoc, khoahoc.tenKhoaHoc as tenKhoaHoc
+        from baihoc inner join noidungkhoahoc on noidungkhoahoc.maNoiDung=baihoc.maNoiDung
+        inner join khoahoc on khoahoc.maKhoaHoc=noidungkhoahoc.maKhoaHoc";
         $result = (new Connection())->select($sql);
         $arr=[];
         foreach($result as $row){
@@ -16,11 +18,13 @@ class BaiHoc{
     }
     public function create($params){
         $object=new BaiHocObject($params);
-        $sql = "insert into BAIHOC(tenBaiHoc,tieuDe,moTa,video) 
+        $sql = "insert into BAIHOC(tenBaiHoc,tieuDe,moTa,video,maKhoaHoc,maNoiDung) 
         values('" . $object->get_tenBaiHoc()."',
         '" . $object->get_tieuDe()."',
         '" . $object->get_moTa()."',
-        '" . $object->get_video()."')";
+        '" . $object->get_video()."',
+        '" . $object->get_maKhoaHoc()."',
+        '" . $object->get_maNoiDung()."')";
         (new Connection())->excute($sql);
     }
 
@@ -37,7 +41,9 @@ class BaiHoc{
         set tenBaiHoc='".$object->get_tenBaiHoc()."',
         tieuDe='".$object->get_tieuDe()."',
         moTa='".$object->get_moTa()."',
-        video='".$object->get_video()."'
+        video='".$object->get_video()."',
+        maKhoaHoc='".$object->get_maKhoaHoc()."',
+        maNoiDung='".$object->get_maNoiDung()."'
         where maBaiHoc='".$object->get_maBaiHoc()."'";
         (new Connection())->excute($sql);
     }

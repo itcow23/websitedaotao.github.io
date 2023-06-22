@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form action="?action=store&controller=khoahoc" method="POST">
+                <form action="?action=store&controller=khoahoc" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label>Tên Khóa Học</label>
@@ -24,14 +24,7 @@
 
                     <div class="form-group col-md-12">
                         <label>Ảnh</label>
-                        <input type="text" name="anh" class="form-control" placeholder="anh">
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label>Trạng Thái</label>
-                        <select class="custom-select mb-3" name="trangThai">
-                            <option value="1">Đang Học</option>
-                            <option value="2">Chưa Học</option>
-                        </select> 
+                        <input type="file" name="anh" class="form-control" placeholder="anh">
                     </div>
                     <div class="form-group mb-0 justify-content-end row">
                         <div class="col-7">

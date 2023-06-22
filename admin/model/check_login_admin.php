@@ -2,6 +2,6 @@
 
 session_start();
 
-if(!isset($_SESSION['level'])){
+if(!isset($_SESSION['level_ad'])){
     header("location:?controller=login");
 }
