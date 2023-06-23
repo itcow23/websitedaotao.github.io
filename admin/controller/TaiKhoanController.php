@@ -16,7 +16,8 @@ class TaiKhoanController {
         require 'model/TaiKhoan.php';
         (new TaiKhoan())->create($_POST);
 
-        $_SESSION['success_insert'] = "Thêm thành công";
+        $_SESSION['code'] = "info";
+        $_SESSION['status'] = "Thêm thành công";
         header('location: index.php?controller=taikhoan');
     }
     public function edit() {
@@ -31,7 +32,8 @@ class TaiKhoanController {
         require 'model/TaiKhoan.php';
         (new TaiKhoan())->update($_POST);
 
-        $_SESSION['success_edit'] = "Sửa thành công";
+        $_SESSION['code'] = "success";
+        $_SESSION['status'] = "Sửa thành công";
         header('location: index.php?controller=taikhoan');
     }
 
@@ -39,6 +41,9 @@ class TaiKhoanController {
         $maTK = $_GET['maTK'];
         require 'model/TaiKhoan.php';
         (new TaiKhoan())->delete($maTK);
+
+        $_SESSION['code'] = "success";
+        $_SESSION['status'] = "Xóa thành công";
         header('location: index.php?controller=taikhoan');
     }
 }

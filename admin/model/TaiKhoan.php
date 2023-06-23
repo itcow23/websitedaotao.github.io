@@ -37,7 +37,8 @@ class TaiKhoan {
             $_SESSION['matKhau'] = $object->get_matKhau();
             $_SESSION['level'] = $object->get_level();
             $_SESSION['maKH_TK'] = $object->get_maKH_TK();
-            $_SESSION['error_insert'] = "Thêm không thành công";
+            $_SESSION['status'] = "Thêm không thành công";
+            $_SESSION['code'] = "error";
             header("location: index.php?controller=taikhoan");
             exit();
      }else
@@ -62,11 +63,8 @@ class TaiKhoan {
         $object=new TaiKhoanObject($params);
         $test_pass_edit = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/";
      if(!preg_match($test_pass_edit, $object->get_matKhau())){
-
-            $_SESSION['error_mk_edit'] = "Mật khẩu  phải bao gồm 8 kí tự, 1 chuối, 1 kí tự in hoặc 1 kí tự số";
-            $_SESSION['matKhau_edit'] = $object->get_matKhau();
-            $_SESSION['level_edit'] = $object->get_level();
-            $_SESSION['error_edit'] = "Sửa không thành công vui lòng nhập lại mật khẩu";
+            $_SESSION['status'] = "Sửa không thành công vui lòng nhập lại mật khẩu";
+            $_SESSION['code'] = "error";
             header("location: index.php?controller=taikhoan");
             exit();
      }

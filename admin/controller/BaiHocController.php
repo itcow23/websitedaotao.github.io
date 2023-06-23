@@ -18,6 +18,9 @@ class BaiHocController {
     public function store() {
         require 'model/BaiHoc.php';
         (new BaiHoc())->create($_POST);
+
+        $_SESSION['code'] = "success";
+        $_SESSION['status'] = "Thêm thành công";
         header('location: index.php?controller=baihoc');
     }
     public function edit() {
@@ -33,6 +36,9 @@ class BaiHocController {
     public function update() {
         require 'model/BaiHoc.php';
         (new BaiHoc())->update($_POST);
+
+        $_SESSION['code'] = "info";
+        $_SESSION['status'] = "Sửa thành công";
         header('location: index.php?controller=baihoc');
     }
 
@@ -40,6 +46,9 @@ class BaiHocController {
         $maBaiHoc = $_GET['maBaiHoc'];
         require 'model/BaiHoc.php';
         (new BaiHoc())->delete($maBaiHoc);
+
+        $_SESSION['code'] = "success";
+        $_SESSION['status'] = "Xóa thành công";
         header('location: index.php?controller=baihoc');
     }
 }

@@ -18,4 +18,6 @@ move_uploaded_file($file['tmp_name'], $path_file);
 $sql =  "INSERT INTO baitap (moTa, hanNop, file_homework,maBaiHoc) VALUES ('$moTa', '$hanNop', '$file_name', '$maBaiHoc')";
 $result = (new Connection())->excute($sql);
 
+$_SESSION['code'] = "success";
+$_SESSION['status'] = "Thêm bài tập thành công";
 header( "Location: homework.php?maKhoaHoc=$maKhoaHoc&maNoiDung=$maNoiDung&maBaiHoc=$maBaiHoc" );

@@ -13,6 +13,9 @@ class KhoaHocController{
     public function store(){
         require 'model/KhoaHoc.php';
         (new KhoaHoc())->create($_POST);
+
+        $_SESSION['code'] = "success";
+        $_SESSION['status'] = "Thêm thành công";
         header('location: index.php?controller=khoahoc');
     }
     public function edit(){
@@ -24,12 +27,18 @@ class KhoaHocController{
     public function update(){
         require 'model/KhoaHoc.php';
         (new KhoaHoc())->update($_POST);
+
+        $_SESSION['code'] = "info";
+        $_SESSION['status'] = "Sửa thành công";
         header('location: index.php?controller=khoahoc');
     }
     public function delete(){
         $maKhoaHoc=$_GET['maKhoaHoc'];
         require 'model/KhoaHoc.php';
         (new KhoaHoc())->delete($maKhoaHoc);
+
+        $_SESSION['code'] = "success";
+        $_SESSION['status'] = "Xóa thành công";
         header('location: index.php?controller=khoahoc');
     }
 }

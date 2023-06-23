@@ -16,4 +16,6 @@ video='$video',maKhoaHoc='$maKhoaHoc',maNoiDung='$maNoiDung'
 where maBaiHoc='$maBaiHoc'";
 $result = (new Connection())->excute($sql);
 
+$_SESSION['code'] = "success";
+$_SESSION['status'] = "Cập nhật bài học thành công";
 header( "location: manage_lesson_course.php" );

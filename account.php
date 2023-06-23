@@ -82,7 +82,7 @@
                                     unset($_SESSION['success']); ?> </span>
                             </div>
                         </div>
-                        <?php } ?>
+                    <?php } ?>
                         <form class="settings-form" action="process_account.php" method="POST" enctype="multipart/form-data">
                             <div class="fileinput-new img-no-padding" style="margin-left: 140px; margin-bottom:40px;">
                                 <img class="img-circle img-no-padding img-responsive" src="<?php if(empty($user['avatar'])) echo $noavatar; else echo $avatar;  ?>" alt="Avatar" style="max-block-size:200px;">
@@ -149,7 +149,22 @@
 <!-- Control Center for Paper Kit: parallax effects, scripts for the example pages etc -->
 <script src="./assets/js/paper-kit.js?v=2.1.0"></script>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+<?php if(isset($_SESSION['code'])){?>
+<script type="text/javascript">
+$(document).ready(function() {
+    swal({
+        title:  '<?php echo $_SESSION['status']; ?>',
+        icon:  '<?php echo $_SESSION['code']; ?>',
+        button: "Ok",
+        timer: 2000
+    });
+});
+</script>
+<?php unset($_SESSION['code']);
+  unset($_SESSION['status']);
+} ?>
 
 
 

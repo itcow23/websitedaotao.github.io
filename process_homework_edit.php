@@ -24,4 +24,6 @@ else{
 $sql =  "update baitap  set moTa = '$moTa', hanNop = '$hanNop', file_homework = '$file_name' where maBaiHoc = '$maBaiHoc'";
 $result = (new Connection())->excute($sql);
 
+$_SESSION['code'] = "success";
+$_SESSION['status'] = "Cập nhật bài tập thành công";
 header( "Location: homework.php?maKhoaHoc=$maKhoaHoc&maNoiDung=$maNoiDung&maBaiHoc=$maBaiHoc" );

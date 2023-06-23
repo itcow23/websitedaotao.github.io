@@ -582,6 +582,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="layout/js/vendor.min.js"></script>
     <script src="layout/js/app.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<?php if(isset($_SESSION['code'])){?>
+<script type="text/javascript">
+$(document).ready(function() {
+    swal({
+        title:  '<?php echo $_SESSION['status']; ?>',
+        icon:  '<?php echo $_SESSION['code']; ?>',
+        button: "Ok",
+        timer: 2000
+    });
+});
+</script>
+<?php unset($_SESSION['code']);
+  unset($_SESSION['status']);
+} ?>
 
 </body>
 

@@ -14,7 +14,7 @@
                     </div>
                     <div class="form-group col-md-12">
                         <label>Mật Khẩu</label>
-                        <input type="password" name="matKhau" value="<?php echo $each->get_matKhau(); ?>" class="form-control" placeholder="Nhập mật khẩu">
+                        <input type="text" name="matKhau" value="<?php echo $each->get_matKhau(); ?>" class="form-control" placeholder="Nhập mật khẩu">
                     </div>
                     <div class="form-group col-md-12">
                         <label>Tên khách hàng</label>

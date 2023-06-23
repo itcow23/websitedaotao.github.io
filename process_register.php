@@ -11,5 +11,6 @@ $maTK =  $_POST['maTK'];
 $sql = "INSERT INTO dangkykhoahoc (maLop,maKhoaHoc,tenGV, tenHV,maTK ) VALUES ('$maLop', '$maKhoaHoc', '$tenGV', '$tenHV','$maTK')";
 $result =  (new Connection())->excute($sql);
 
-$_SESSION['success'] = "Đăng ký thành công";
+$_SESSION['code'] = "success";
+$_SESSION['status'] = "Đăng ký thành công";
 header( "Location: register_course.php" );

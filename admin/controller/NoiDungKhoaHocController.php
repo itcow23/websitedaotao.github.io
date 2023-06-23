@@ -14,6 +14,9 @@ class NoiDungKhoaHocController {
     public function store() {
         require 'model/NoiDungKhoaHoc.php';
         (new NoiDungKhoaHoc())->create($_POST);
+
+        $_SESSION['code'] = "info";
+        $_SESSION['status'] = "Thêm thành công";
         header('location: index.php?controller=noidung');
     }
     public function edit() {
@@ -30,6 +33,9 @@ class NoiDungKhoaHocController {
     public function update() {
         require 'model/NoiDungKhoaHoc.php';
         (new NoiDungKhoaHoc())->update($_POST);
+
+        $_SESSION['code'] = "success";
+        $_SESSION['status'] = "Sửa thành công";
         header('location: index.php?controller=noidung');
     }
 
@@ -37,6 +43,9 @@ class NoiDungKhoaHocController {
         $maNoiDung = $_GET['maNoiDung'];
         require 'model/NoiDungKhoaHoc.php';
         (new NoiDungKhoaHoc())->delete($maNoiDung);
+
+        $_SESSION['code'] = "success";
+        $_SESSION['status'] = "Xóa thành công";
         header('location: index.php?controller=noidung');
     }
 }

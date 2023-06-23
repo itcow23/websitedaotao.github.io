@@ -492,29 +492,6 @@
                                     <button class="btn btn-success" data-toggle="modal" data-target="#create">
                                         Thêm
                                     </button>
-                                    <?php if(isset($_SESSION['error_insert'])){  ?>
-                                    <div class="alert alert-danger" role="alert">
-                                        <?php echo $_SESSION['error_insert']; ?>
-                                    </div>
-                                    <?php unset($_SESSION['error_insert']); }?>
-
-                                    <?php if(isset($_SESSION['success_insert'])){  ?>
-                                    <div class="alert alert-success" role="alert">
-                                        <?php echo $_SESSION['success_insert']; ?>
-                                    </div>
-                                    <?php unset($_SESSION['success_insert']); }?>
-
-                                    <?php if(isset($_SESSION['error_edit'])){  ?>
-                                    <div class="alert alert-danger" role="alert">
-                                        <?php echo $_SESSION['error_edit']; ?>
-                                    </div>
-                                    <?php unset($_SESSION['error_edit']); }?>
-
-                                    <?php if(isset($_SESSION['success_edit'])){  ?>
-                                    <div class="alert alert-success" role="alert">
-                                        <?php echo $_SESSION['success_edit']; ?>
-                                    </div>
-                                    <?php unset($_SESSION['success_edit']); }?>
                                     <!-- Create-->
                                     <?php include 'create.php'; ?>
                                     <table class="table table-striped table-centered mb-0">
@@ -599,6 +576,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="layout/js/vendor.min.js"></script>
     <script src="layout/js/app.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <?php if(isset($_SESSION['code'])){?>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        swal({
+            title:  '<?php echo $_SESSION['status']; ?>',
+            icon:  '<?php echo $_SESSION['code']; ?>',
+            button: "Ok",
+            timer: 2000
+        });
+    });
+</script>
+<?php unset($_SESSION['code']);
+      unset($_SESSION['status']);
+} ?>
 
 </body>
 

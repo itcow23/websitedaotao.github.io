@@ -12,4 +12,6 @@ $video = $_POST["video"];
 $sql = "insert into baihoc(tenBaiHoc,tieuDe,moTa,video,maKhoaHoc,maNoiDung) values ('$tenBaiHoc','$tieuDe' ,'$moTa','$video','$maKhoaHoc','$maNoiDung')";
 $result = (new Connection())->excute($sql);
 
+$_SESSION['code'] = "success";
+$_SESSION['status'] = "Thêm bài học thành công";
 header( "location: manage_lesson_course.php" );

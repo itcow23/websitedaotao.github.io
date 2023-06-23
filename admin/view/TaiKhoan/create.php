@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group col-md-12">
                         <label>Mật Khẩu</label>
-                        <input type="password" name="matKhau" value="<?php if(isset($_SESSION['matKhau'])) echo $_SESSION['matKhau']; unset($_SESSION['matKhau']);?>" class="form-control" placeholder="Nhập mật khẩu">
+                        <input type="text" name="matKhau" value="<?php if(isset($_SESSION['matKhau'])) echo $_SESSION['matKhau']; unset($_SESSION['matKhau']);?>" class="form-control" placeholder="Nhập mật khẩu">
                         <span style="color: red;"><?php if(isset($_SESSION['error_mk'])) echo $_SESSION['error_mk']; unset($_SESSION['error_mk']); ?></span>
                     </div>
                     <div class="form-group col-md-12">

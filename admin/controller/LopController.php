@@ -12,6 +12,9 @@ class LopController{
     public function store() {
         require 'model/Lop.php';
         (new Lop())->create($_POST);
+
+        $_SESSION['code'] = "success";
+        $_SESSION['status'] = "Thêm thành công";
         header('location: index.php?controller=lop');
     }
     public function edit() {
@@ -27,6 +30,9 @@ class LopController{
     public function update() {
         require 'model/Lop.php';
         (new Lop())->update($_POST);
+
+        $_SESSION['code'] = "info";
+        $_SESSION['status'] = "Sửa thành công";
         header('location: index.php?controller=lop');
     }
 
@@ -34,6 +40,9 @@ class LopController{
         $maLop = $_GET['maLop'];
         require 'model/Lop.php';
         (new Lop())->delete($maLop);
+
+        $_SESSION['code'] = "success";
+        $_SESSION['status'] = "Xóa thành công";
         header('location: index.php?controller=lop');
     }
 }
