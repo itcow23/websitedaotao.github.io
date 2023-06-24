@@ -487,9 +487,9 @@
                                 <div class="card-body">
                                 <div class="container">
                                     <!-- Trigger the modal with a button -->
-                                    <button class="btn btn-success" data-toggle="modal" data-target="#create">
+                                    <!-- <button class="btn btn-success" data-toggle="modal" data-target="#create">
                                         Thêm
-                                    </button>
+                                    </button> -->
                                     <!-- Create-->
                                     <?php include "create.php"; ?>
                                     <table class="table table-striped table-centered mb-0">

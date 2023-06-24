@@ -5,6 +5,7 @@ require "./admin/model/connect.php";
 $maKhoaHoc = $_GET['maKhoaHoc'];
 $maNoiDung = $_GET['maNoiDung'];
 $maBaiHoc = $_GET['maBaiHoc'];
+$maLop  = $_GET['maLop'];
 
 $moTa = $_POST['moTa'];
 $hanNop = $_POST['hanNop'];
@@ -26,4 +27,4 @@ $result = (new Connection())->excute($sql);
 
 $_SESSION['code'] = "success";
 $_SESSION['status'] = "Cập nhật bài tập thành công";
-header( "Location: homework.php?maKhoaHoc=$maKhoaHoc&maNoiDung=$maNoiDung&maBaiHoc=$maBaiHoc" );
+header( "Location: homework.php?maKhoaHoc=$maKhoaHoc&maNoiDung=$maNoiDung&maBaiHoc=$maBaiHoc&maLop=$maLop" );

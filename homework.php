@@ -4,45 +4,55 @@
     $maKhoaHoc = $_GET['maKhoaHoc'];
     $maBaiHoc = $_GET['maBaiHoc'];
     $maNoiDung = $_GET['maNoiDung'];
+    $maLop = $_GET['maLop'];
     // 1. Lấy thông tin 1 khóa học
     $sql1= "Select * from khoahoc where maKhoaHoc='$maKhoaHoc'";
     $khoahocs = (new Connection())->select($sql1);
     $khoahoc = mysqli_fetch_array($khoahocs);
     
     // 2. Lấy thông tin nội dung
-        $sql3= "Select * from noidungkhoahoc where maKhoaHoc='$maKhoaHoc'";
+        $sql3= "Select * from noidungkhoahoc where  maKhoaHoc='$maKhoaHoc' and maLop='$maLop'";
         $noidungs = (new Connection())->select($sql3);
-    
-    // 3. Lấy thông tin toàn bộ bài học
-        $sql4= "Select * from baihoc where maKhoaHoc='$maKhoaHoc'";
-        $baihocs = (new Connection())->select($sql4);
 
     // 4.Lấy thông tin 1 bài học
-    $sql2= "Select * from baihoc where maKhoaHoc='$maKhoaHoc' and maNoiDung='$maNoiDung'";
+    $sql2= "Select * from baihoc where  maBaiHoc='$maBaiHoc'";
     $baihocss = (new Connection())->select($sql2);
     $infobaihoc = mysqli_fetch_array($baihocss);
 
     // 5. Lấy thông tin 1 nội dung
-    $sql5= "Select * from noidungkhoahoc where maKhoaHoc='$maKhoaHoc'";
+    $sql5= "Select * from noidungkhoahoc where maNoiDung='$maNoiDung'";
     $tennoidung = (new Connection())->select($sql5);
     $infonoidung = mysqli_fetch_array($tennoidung);
 
     // 6. Lấy thông tin bài tập
-    $sql6= "Select * from baitap where maBaiHoc='$maBaiHoc'";
+    $sql6= "Select * from baitap where maBaiHoc='$maBaiHoc' and maLop='$maLop'";
     $baitaps = (new Connection())->select($sql6);
     $num_row_bt = mysqli_num_rows($baitaps);
     $infobaitap = mysqli_fetch_array($baitaps);
 
-    // 7. Lấy thông tin nộp bài tập
-    $sql7= "Select * from nopbaitap where maBaiHoc='$maBaiHoc'";
+    // 7. Lấy thông tin tổng số nộp bài tập
+    $sql7= "Select * from nopbaitap where maBaiHoc='$maBaiHoc' and maLop='$maLop'";
     $nopbaitaps = (new Connection())->select($sql7);
     $num_row_nopbaitap = mysqli_num_rows($nopbaitaps);
-    $infonopbaitap = mysqli_fetch_array($nopbaitaps);
+    
 
-    // 8. Lấy thông tin bình luận
-    $sql8= "Select binhluan.*,khachhang.hoTen from binhluan inner join khachhang on binhluan.maKH=khachhang.maKH where maBaiHoc='$maBaiHoc'";
+     // 7. Lấy thông tin nộp bài tập của 1 học viên
+     $maTK = $_SESSION['id'];
+     $sql10= "Select * from nopbaitap where maBaiHoc='$maBaiHoc' and maLop='$maLop' and maTK='$maTK'";
+     $nopbaitaphvs = (new Connection())->select($sql10);
+     $num_row_nopbaitaphv = mysqli_num_rows($nopbaitaphvs);
+     $infonopbaitap = mysqli_fetch_array($nopbaitaps);
+
+    // 8. Lấy tổng số sinh viên của lớp
+    $sql9= "Select * from dangkykhoahoc where maLop='$maLop'";
+    $dangkykhoahocs = (new Connection())->select($sql9);
+    $num_row_dangkykhoahoc = mysqli_num_rows($dangkykhoahocs);
+
+    // 9. Lấy thông tin bình luận
+    $sql8= "Select binhluan.*,khachhang.hoTen from binhluan inner join khachhang on binhluan.maKH=khachhang.maKH where maBaiHoc='$maBaiHoc' and maLop='$maLop'";
     $binhluans = (new Connection())->select($sql8);
     $num_row_binhluan = mysqli_num_rows($binhluans);
+   
 ?>
 <!doctype html>
 <html lang="en">
@@ -89,7 +99,7 @@
                         <a class="nav-link" href="register_course.php" data-scroll="true" href="javascript:void(0)">Đăng ký khóa học</a>
                     </li>
                     <li class="nav-item" style="<?php if($_SESSION['level']==1){ ?> display: none; <?php } ?>">
-                        <a class="nav-link" href="manage_content_course.php" data-scroll="true" href="javascript:void(0)">Quản lý khóa học</a>
+                        <a class="nav-link" href="manage_course.php" data-scroll="true" href="javascript:void(0)">Quản lý khóa học</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><?php echo $_SESSION['hoTen'] ?></a>
@@ -113,16 +123,21 @@
                             </a>
                         </div>
                         <?php foreach($noidungs as $noidung): ?>
+                            <?php 
+                                    $maNoiDung = $noidung['maNoiDung'];
+                                    $sql2= "Select * from baihoc where maNoiDung = '$maNoiDung'";
+                                    $baihocs = (new Connection())->select($sql2);
+                            ?>
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $maNoiDung ?>" aria-expanded="true" aria-controls="collapseOne">
                                             <?php echo $noidung['noiDungKhoaHoc'] ?>
                                         </a>
                                     </h4>
                                 </div>
-                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div id="collapse<?php echo $maNoiDung ?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                     <div class="panel-body">
                                         <ul style="padding-left: 20px;">
                                             <?php foreach($baihocs as $baihoc): ?>
@@ -158,7 +173,7 @@
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="process_homework_create.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maNoiDung=<?php echo $maNoiDung ?>&maBaiHoc=<?php echo $maBaiHoc ?>" method="POST" enctype="multipart/form-data">
+                                                <form action="process_homework_create.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maNoiDung=<?php echo $maNoiDung ?>&maBaiHoc=<?php echo $maBaiHoc ?>&maLop=<?php echo $maLop ?>" method="POST" enctype="multipart/form-data">
                                                 
                                                     <div class="form-group col-md-12">
                                                         <label>Mô Tả</label>
@@ -193,7 +208,7 @@
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="process_homework_edit.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maNoiDung=<?php echo $maNoiDung ?>&maBaiHoc=<?php echo $maBaiHoc ?>" method="POST" enctype="multipart/form-data">
+                                                <form action="process_homework_edit.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maNoiDung=<?php echo $maNoiDung ?>&maBaiHoc=<?php echo $maBaiHoc ?>&maLop=<?php echo $maLop ?>" method="POST" enctype="multipart/form-data">
                                                 
                                                     <div class="form-group col-md-12">
                                                         <label>Mô Tả</label>
@@ -244,27 +259,32 @@
                                     <th>Hạn nộp</th>
                                     <td><?php echo $infobaitap['hanNop'] ?></td>
                                 </tr>
-                                <tr>
+                                <tr <?php if($_SESSION['level'] == 1) echo "hidden";?> >
                                     <th>Nộp bài</th>
-                                    <td><?php if($num_row_nopbaitap == 0) echo "Chưa nộp";
-                                            else { ?> 
-                                             <a href="assets/submit_homework/<?php echo $infonopbaitap["fileNop"] ?>" download="<?php echo $infonopbaitap["fileNop"] ?>" style="color: red;">
-                                                <?php echo $infonopbaitap["fileNop"] ?>
-                                            </a>
-                                            <?php echo " - Ngày Nộp: ", $infonopbaitap["ngayNop"];
-                                                }?>
+                                    <td><?php echo $num_row_nopbaitap ?>/<?php echo $num_row_dangkykhoahoc ?></td>
+                                    <td><button class="btn" data-toggle="modal" data-target="#list">Danh sách nộp bài</button></td>
+                                </tr>
+                                <tr>
+                                    <th>Bài Tập</th>
+                                    <td><?php if($num_row_nopbaitaphv == 0) echo "Chưa nộp";
+                                        else{?>
+                                            <a href="assets/submit_homework/<?php echo $infonopbaitap['fileNop'] ?>" download="<?php echo $infonopbaitap['fileNop'] ?>" style="color: red;">
+                                                <?php echo $infonopbaitap['fileNop'] ?>
+                                            </a>  
+                                            - Ngày Nộp <?php echo $infonopbaitap['ngayNop']; ?>  
+                                     <?php }?>
                                     </td>
                                 </tr>
                             </table>
 
-                            <form action="process_submitHW.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maNoiDung=<?php echo $maNoiDung ?>&maBaiHoc=<?php echo $maBaiHoc ?>" method="POST" enctype="multipart/form-data" <?php if($_SESSION['level']==2 || $num_row_nopbaitap != 0) echo "hidden" ?>>
+                            <form action="process_submitHW.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maNoiDung=<?php echo $maNoiDung ?>&maBaiHoc=<?php echo $maBaiHoc ?>&maLop=<?php echo $maLop ?>" method="POST" enctype="multipart/form-data" <?php if($_SESSION['level']==2 || $num_row_nopbaitap != 0) echo "hidden" ?>>
                                 <input type="file" name="fileSubmit">
                                 <button class="btn">
                                      Nộp bài               
                                 </button>
                             </form>
 
-                            <form action="process_editHW.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maNoiDung=<?php echo $maNoiDung ?>&maBaiHoc=<?php echo $maBaiHoc ?>" method="POST" enctype="multipart/form-data" <?php if($_SESSION['level']==2 || $num_row_nopbaitap == 0) echo "hidden" ?>>
+                            <form action="process_editHW.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maNoiDung=<?php echo $maNoiDung ?>&maBaiHoc=<?php echo $maBaiHoc ?>&maLop=<?php echo $maLop ?>" method="POST" enctype="multipart/form-data" <?php if($_SESSION['level']==2 || $num_row_nopbaitap == 0) echo "hidden" ?>>
                                 <input type="hidden" name="fileSubmit_old" value="<?php echo $infonopbaitap["fileNop"] ?>">
                                 <input type="file" name="fileSubmit_new">
                                 <button class="btn"> 
@@ -273,7 +293,7 @@
                             </form>
                              <hr>
                         <div class="">
-                            <form action="process_comment.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maNoiDung=<?php echo $maNoiDung ?>&maBaiHoc=<?php echo $maBaiHoc?>" method="post">
+                            <form action="process_comment.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maNoiDung=<?php echo $maNoiDung ?>&maBaiHoc=<?php echo $maBaiHoc?>&maLop=<?php echo $maLop ?>" method="post">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Bình luận</label>
                                     <textarea class="form-control" name="noiDung" id="exampleInputEmail1" rows="3"></textarea>
@@ -286,14 +306,14 @@
                             <div>
                                 <h5 style="font-weight: bold;"><?php echo $binhluan['hoTen'] ?> <span style="font-size: 12px;"><?php echo $binhluan['ngayDang'] ?></span></h5>
                                 <p id="comment<?php echo $binhluan['maBinhLuan'] ?>"><?php echo $binhluan['noiDung'] ?></p>
-                                <form method="post" action="process_edit_comment.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maNoiDung=<?php echo $maNoiDung ?>&maBaiHoc=<?php echo $maBaiHoc?>" id="edit_comment<?php echo $binhluan['maBinhLuan'] ?>" style="display: none;">
+                                <form method="post" action="process_edit_comment.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maNoiDung=<?php echo $maNoiDung ?>&maBaiHoc=<?php echo $maBaiHoc?>&maLop=<?php echo $maLop ?>" id="edit_comment<?php echo $binhluan['maBinhLuan'] ?>" style="display: none;">
                                 <input type="hidden" name="maBinhLuan" value="<?php echo $binhluan['maBinhLuan'] ?>">
                                 <textarea class="form-control" name="noiDung" id="exampleInputEmail1" rows="3"><?php echo $binhluan['noiDung'] ?></textarea>
                                     <button type="submit" >Sửa</button>
                                 </form>
                                 <div id="btnComment<?php echo $binhluan['maBinhLuan'] ?>" <?php if($_SESSION['maKH_TK'] != $binhluan['maKH']) echo "hidden"?>>
                                     <button onclick="editcomment<?php echo $binhluan['maBinhLuan'] ?>()" style="margin-right: 20px;">Sửa</button>
-                                        <a href="process_delete_comment.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maNoiDung=<?php echo $maNoiDung ?>&maBaiHoc=<?php echo $maBaiHoc?>&maBinhLuan=<?php echo $binhluan['maBinhLuan'] ?>"><button>Xóa</button></a>
+                                        <a href="process_delete_comment.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maNoiDung=<?php echo $maNoiDung ?>&maBaiHoc=<?php echo $maBaiHoc?>&maBinhLuan=<?php echo $binhluan['maBinhLuan'] ?>&maLop=<?php echo $maLop ?>"><button>Xóa</button></a>
                                 </div>
                                 <hr>
                             </div>
@@ -344,6 +364,8 @@ function editcomment<?php echo $binhluan['maBinhLuan'] ?>() {
 <script src="./assets/js/paper-kit.js?v=2.1.0"></script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
 <?php if(isset($_SESSION['code'])){?>
 <script type="text/javascript">
@@ -364,3 +386,60 @@ $(document).ready(function() {
 
 
 </html>
+
+    <!-- Modal danh sách sinh viên -->
+                                <div class="modal fade" id="list" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Danh sách học viên</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>STT</th>
+                                                                <th>Họ tên</th>
+                                                                <th>File</th>
+                                                                <th>Ngày nộp</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php 
+                                                                $i = 1;
+                                                                foreach($dangkykhoahocs as $hocvien): 
+                                                            ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <?php echo $i; 
+                                                                            $i= $i+1;
+                                                                    ?>
+                                                                </td>
+                                                                <td>
+                                                                    <?php echo $hocvien['tenHV']; ?>
+                                                                </td>
+                                                                <?php foreach($nopbaitaps as $nopbai): ?>
+                                                                <td>
+                                                                    <?php if($hocvien['maTK'] == $nopbai['maTK'])
+                                                                    {?>
+                                                                        <a href="assets/submit_homework/<?php echo $nopbai['fileNop'] ?>" download="<?php echo $nopbai['fileNop'] ?>" style="color: red;">
+                                                                            <?php echo $nopbai['fileNop'] ?>
+                                                                        </a> 
+                                                                    <?php } else echo "Chưa nộp"; ?>
+                                                                </td>
+                                                                <td>
+                                                                <?php if($hocvien['maTK'] == $nopbai['maTK']) echo $nopbai['ngayNop']; else echo "Chưa nộp"; ?>
+                                                                </td>
+                                                                <?php endforeach; ?>
+                
+                                                            </tr>
+                                                            <?php endforeach; ?>
+                                                        </tbody>
+                                                    </table>     
+                                                </div>  
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>

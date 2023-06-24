@@ -2,13 +2,15 @@
     require "check_login.php";
     require "./admin/model/connect.php"; 
     $maKhoaHoc = $_GET['maKhoaHoc'];
+    $maLop = $_GET['maLop'];
+
     $sql1= "Select * from khoahoc where maKhoaHoc='$maKhoaHoc'"; 
     $khoahocs = (new Connection())->select($sql1);
     $khoahoc = mysqli_fetch_array($khoahocs);
-    $sql2= "Select * from baihoc where maKhoaHoc='$maKhoaHoc'";
-    $baihocs = (new Connection())->select($sql2);
-    $sql3= "Select * from noidungkhoahoc where maKhoaHoc='$maKhoaHoc'";
+
+    $sql3= "Select * from noidungkhoahoc where maKhoaHoc='$maKhoaHoc' and  maLop='$maLop'";
     $noidungs = (new Connection())->select($sql3);
+    
 ?>
 <!doctype html>
 <html lang="en">
@@ -55,7 +57,7 @@
                         <a class="nav-link" href="register_course.php" data-scroll="true" href="javascript:void(0)">Đăng ký khóa học</a>
                     </li>
                     <li class="nav-item" style="<?php if($_SESSION['level']==1){ ?> display: none; <?php } ?>">
-                        <a class="nav-link" href="manage_content_course.php" data-scroll="true" href="javascript:void(0)">Quản lý khóa học</a>
+                        <a class="nav-link" href="manage_course.php" data-scroll="true" href="javascript:void(0)">Quản lý khóa học</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><?php echo $_SESSION['hoTen'] ?></a>
@@ -67,7 +69,7 @@
                 </ul>
             </div>
         </div>
-    </nav>
+</nav>
     <div class="wrapper">
         <div class="section section-blog">
             <div class="container">
@@ -94,31 +96,37 @@
                             <span class="price"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $khoahoc['thoiGian'] ?> min</span>
                         </div>
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                        <?php foreach($noidungs as $noidung):  ?>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingOne">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            <?php echo $noidung['noiDungKhoaHoc'] ?>
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                    <div class="panel-body">
-                                        <ul style="padding-left: 20px;">
-                                            <?php foreach($baihocs as $baihoc): ?>
-                                            <li style="list-style-position: outside;">
-                                                <a href="lesson.php?maKhoaHoc=<?php echo $khoahoc['maKhoaHoc'] ?>&maBaiHoc=<?php echo $baihoc['maBaiHoc'] ?>&maNoiDung=<?php echo $baihoc['maNoiDung'] ?>">
-                                                    <?php echo $baihoc['tenBaiHoc'] ?>
-                                                </a>
-                                            </li>
-                                            <?php endforeach; ?>
-                                        </ul>
+                            <?php foreach($noidungs as $noidung):  ?>
+                                <?php 
+                                    $maNoiDung = $noidung['maNoiDung'];
+                                    $sql2= "Select * from baihoc where maNoiDung = '$maNoiDung'";
+                                    $baihocs = (new Connection())->select($sql2);
+                                ?>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $maNoiDung; ?>" aria-expanded="true" aria-controls="collapseOne">
+                                                <?php echo $noidung['noiDungKhoaHoc'] ?>
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse<?php echo $maNoiDung; ?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                                <?php foreach($baihocs as $baihoc): ?>
+                                                    <ul style="padding-left: 20px;">
+                                                        <li style="list-style-position: outside;">
+                                                            <a href="lesson.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maBaiHoc=<?php echo $baihoc['maBaiHoc'] ?>&maNoiDung=<?php echo $baihoc['maNoiDung'] ?>&maLop=<?php echo $maLop ?>">
+                                                                <?php echo $baihoc['tenBaiHoc'] ?>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        <?php endforeach; ?>
-                        <!-- Acordeon  -->
+                            <?php endforeach; ?>
+                        </div>
                     </div>
                 </div>
             </div>

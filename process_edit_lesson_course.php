@@ -3,6 +3,7 @@ require "check_login.php";
 require "./admin/model/connect.php";
 
 $maKhoaHoc = $_POST["maKhoaHoc"];
+$maLop = $_POST["maLop"];
 $maNoiDung = $_POST["maNoiDung"];
 $tenBaiHoc = $_POST["tenBaiHoc"];
 $tieuDe = $_POST["tieuDe"];
@@ -18,4 +19,4 @@ $result = (new Connection())->excute($sql);
 
 $_SESSION['code'] = "success";
 $_SESSION['status'] = "Cập nhật bài học thành công";
-header( "location: manage_lesson_course.php" );
+header( "location: manage_lesson_course.php?maKhoaHoc=$maKhoaHoc&maLop=$maLop" );

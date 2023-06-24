@@ -43,7 +43,7 @@
                         <a class="nav-link" href="register_course.php" data-scroll="true" href="javascript:void(0)">Đăng ký khóa học</a>
                     </li>
                     <li class="nav-item" style="<?php if($_SESSION['level']==1){ ?> display: none; <?php } ?>">
-                        <a class="nav-link" href="manage_content_course.php" data-scroll="true" href="javascript:void(0)">Quản lý khóa học</a>
+                        <a class="nav-link" href="manage_course.php" data-scroll="true" href="javascript:void(0)">Quản lý khóa học</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><?php echo $_SESSION['hoTen'] ?></a>
@@ -82,7 +82,7 @@
                     <div class="col-md-6" style="<?php if($_SESSION['level']==1){ ?> display: none; <?php } ?>">
                         <div class="card card-blog" style="background-color: royalblue;">
                             <div class="card-image" style="text-align: center;">
-                                <a href="manage_content_course.php" >
+                                <a href="manage_course.php" >
                                     <img class="img-fluid " src="https://qlht.haui.edu.vn/theme/adaptable/pix/icon_homepage/diendan.png">
                                     <h3 style="color: white; margin: 20px; font-weight: 1000;">Quản lý khóa Học</h3>
                                 </a>

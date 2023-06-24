@@ -2,15 +2,19 @@
     require "check_login.php";
     require_once "./admin/model/connect.php"; 
     
-    $sql= "select baihoc.*, noidungkhoahoc.noiDungKhoaHoc as noiDungKhoaHoc, khoahoc.tenKhoaHoc as tenKhoaHoc
+    $maKhoaHoc = $_GET['maKhoaHoc'];
+    $maLop = $_GET['maLop'];
+
+    $sql= "select baihoc.*, noidungkhoahoc.noiDungKhoaHoc as noiDungKhoaHoc, khoahoc.tenKhoaHoc as tenKhoaHoc,lop.tenLop as tenLop
     from baihoc inner join noidungkhoahoc on noidungkhoahoc.maNoiDung=baihoc.maNoiDung
-    inner join khoahoc on khoahoc.maKhoaHoc=noidungkhoahoc.maKhoaHoc";
+    inner join khoahoc on khoahoc.maKhoaHoc=noidungkhoahoc.maKhoaHoc inner join lop on baihoc.maLop = lop.maLop  where baihoc.maKhoaHoc = '$maKhoaHoc' and baihoc.maLop = '$maLop'";
     $result = (new Connection())->select($sql);
 
-    $sql1 =  "select * from khoahoc";
+    $sql1 =  "select * from khoahoc  where maKhoaHoc = '$maKhoaHoc'";
     $khoahocs = (new Connection())->select($sql1);
+    $khoahoc =  mysqli_fetch_array($khoahocs);
 
-    $sql2 =  "select * from noidungkhoahoc";
+    $sql2 =  "select * from noidungkhoahoc  where maKhoaHoc = '$maKhoaHoc'  and maLop = '$maLop'";
     $noidungs = (new Connection())->select($sql2);
 
 
@@ -60,7 +64,7 @@
                         <a class="nav-link" href="register_course.php" data-scroll="true" href="javascript:void(0)">Đăng ký khóa học</a>
                     </li>
                     <li class="nav-item" style="<?php if($_SESSION['level']==1){ ?> display: none; <?php } ?>">
-                        <a class="nav-link" href="manage_content_course.php" data-scroll="true" href="javascript:void(0)">Quản lý khóa học</a>
+                        <a class="nav-link" href="manage_course.php" data-scroll="true" href="javascript:void(0)">Quản lý khóa học</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><?php echo $_SESSION['hoTen'] ?></a>
@@ -100,12 +104,12 @@
                                     <div class="panel-body">
                                         <ul style="padding-left: 20px;">
                                             <li style="list-style-position: outside;">
-                                               <a href="manage_content_course.php">
+                                               <a href="manage_content_course.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maLop=<?php echo $maLop ?>">
                                                     Quản lý nội dung
                                                </a> 
                                             </li>
                                             <li style="list-style-position: outside;">
-                                                <a href="manage_lesson_course.php">
+                                                <a href="manage_lesson_course.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maLop=<?php echo $maLop ?>">
                                                     Quản lý bài học
                                                </a> 
                                             </li>
@@ -129,6 +133,7 @@
                                         <th>Tiêu để</th>
                                         <th>Mô tả</th>
                                         <th>Video</th>
+                                        <th>Tên Lớp</th>
                                         <th>Sửa</th>
                                         <th>Xóa</th>
                                     </tr>
@@ -141,13 +146,14 @@
                                                 <td><?php echo $each["tieuDe"] ?></td>
                                                 <td><?php echo $each["moTa"] ?> </td>
                                                 <td><?php echo $each["video"] ?> </td>
+                                                <td><?php echo $each["tenLop"] ?> </td>
                                                 <td>
                                                     <button class="btn btn-success" data-toggle="modal" data-target="#maBaiHoc<?php echo $each["maBaiHoc"] ?>">
                                                         Sửa
                                                     </button>
                                                 </td>
                                                 <td>
-                                                    <a href="process_delete_lesson_course.php?maBaiHoc=<?php echo $each["maBaiHoc"] ?>" class="btn btn-danger">
+                                                    <a href="process_delete_lesson_course.php?maBaiHoc=<?php echo $each["maBaiHoc"] ?>&maKhoaHoc=<?php echo $maKhoaHoc ?>&maLop=<?php echo $maLop ?>" class="btn btn-danger">
                                                         Xoá
                                                     </a>
                                                 </td>
@@ -167,15 +173,9 @@
                                                                 <div class="row">
                                                                     <div class="form-group col-md-12">
                                                                         <label>Tên Khóa Học</label>
-                                                                        <select class="custom-select mb-3" name="maKhoaHoc">
-                                                                            <?php foreach($khoahocs as $khoahoc): ?>                           
-                                                                                <option value="<?php echo $khoahoc['maKhoaHoc'] ?>"
-                                                                                    <?php if($each["maKhoaHoc"] === $khoahoc["maKhoaHoc"]) echo "selected"?>
-                                                                                >
-                                                                                    <?php echo $khoahoc["tenKhoaHoc"] ?>
-                                                                                </option>
-                                                                            <?php endforeach; ?>
-                                                                        </select>
+                                                                        <input type="hidden" name="maKhoaHoc" value="<?php echo $maKhoaHoc ?>">
+                                                                        <input type="hidden" name="maLop" value="<?php echo $maLop ?>">
+                                                                        <input type="text" value="<?php echo $khoahoc['tenKhoaHoc'] ?>" readonly>
                                                                     </div>
                                                                     <div class="form-group col-md-12">
                                                                         <label>Nội Dung</label>
@@ -278,13 +278,9 @@ $(document).ready(function() {
                 <form action="process_create_lesson_course.php" method="POST">
                     <div class="form-group col-md-12">
                         <label>Tên Khóa Học</label>
-                        <select class="custom-select mb-3" name="maKhoaHoc">
-                            <?php foreach($khoahocs as $khoahoc): ?>                           
-                                <option value="<?php echo $khoahoc["maKhoaHoc"] ?>">
-                                    <?php echo $khoahoc["tenKhoaHoc"] ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                        <input type="hidden" name="maKhoaHoc" value="<?php echo $maKhoaHoc ?>">
+                        <input type="hidden" name="maLop" value="<?php echo $maLop ?>">
+                       <input type="text" value="<?php echo $khoahoc['tenKhoaHoc'] ?>" readonly>
                     </div>
                     <div class="form-group col-md-12">
                         <label>Nội Dung</label>

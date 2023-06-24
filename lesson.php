@@ -4,12 +4,13 @@
     $maKhoaHoc = $_GET['maKhoaHoc'];
     $maBaiHoc = $_GET['maBaiHoc'];
     $maNoiDung = $_GET['maNoiDung'];
+    $maLop =  $_GET['maLop'];
 
     $sql1= "Select * from khoahoc where maKhoaHoc='$maKhoaHoc'";
     $khoahocs = (new Connection())->select($sql1);
     $khoahoc = mysqli_fetch_array($khoahocs);
     
-        $sql3= "Select * from noidungkhoahoc where maKhoaHoc='$maKhoaHoc'";
+        $sql3= "Select * from noidungkhoahoc where maKhoaHoc='$maKhoaHoc' and maLop='$maLop'";
         $noidungs = (new Connection())->select($sql3);
     
         $sql4= "Select * from baihoc where maKhoaHoc='$maKhoaHoc'";
@@ -68,7 +69,7 @@
                         <a class="nav-link" href="register_course.php" data-scroll="true" href="javascript:void(0)">Đăng ký khóa học</a>
                     </li>
                     <li class="nav-item" style="<?php if($_SESSION['level']==1){ ?> display: none; <?php } ?>">
-                        <a class="nav-link" href="manage_content_course.php" data-scroll="true" href="javascript:void(0)">Quản lý khóa học</a>
+                        <a class="nav-link" href="manage_course.php" data-scroll="true" href="javascript:void(0)">Quản lý khóa học</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><?php echo $_SESSION['hoTen'] ?></a>
@@ -92,21 +93,26 @@
                             </a>
                         </div>
                         <?php foreach($noidungs as $noidung): ?>
+                            <?php 
+                                    $maNoiDung = $noidung['maNoiDung'];
+                                    $sql2= "Select * from baihoc where maNoiDung = '$maNoiDung'";
+                                    $baihocs = (new Connection())->select($sql2);
+                            ?>
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $maNoiDung ?>" aria-expanded="true" aria-controls="collapseOne">
                                             <?php echo $noidung['noiDungKhoaHoc'] ?>
                                         </a>
                                     </h4>
                                 </div>
-                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div id="collapse<?php echo $maNoiDung ?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                     <div class="panel-body">
                                         <ul style="padding-left: 20px;">
                                             <?php foreach($baihocs as $baihoc): ?>
                                             <li style="list-style-position: outside;">
-                                                <a href="lesson.php?maKhoaHoc=<?php echo $khoahoc['maKhoaHoc'] ?>&maBaiHoc=<?php echo $baihoc['maBaiHoc'] ?>&maNoiDung=<?php echo $baihoc['maNoiDung'] ?>">
+                                                <a href="lesson.php?maKhoaHoc=<?php echo $khoahoc['maKhoaHoc'] ?>&maBaiHoc=<?php echo $baihoc['maBaiHoc'] ?>&maNoiDung=<?php echo $baihoc['maNoiDung'] ?>&maLop=<?php echo $maLop ?>">
                                                     <?php echo $baihoc['tenBaiHoc'] ?>
                                                 </a>
                                             </li>
@@ -139,7 +145,7 @@
                             </iframe>
                         </div>
                         <h3>
-                            <a href='homework.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maBaiHoc=<?php echo $maBaiHoc ?>&maNoiDung=<?php echo $maNoiDung ?>'>Bài tập</a>
+                            <a href='homework.php?maKhoaHoc=<?php echo $maKhoaHoc ?>&maBaiHoc=<?php echo $maBaiHoc ?>&maNoiDung=<?php echo $maNoiDung ?>&maLop=<?php echo $maLop ?>'>Bài tập</a>
                         </h3>
                     </div>
                 </div>

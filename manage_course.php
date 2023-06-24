@@ -4,10 +4,6 @@
 
     $maTK =  $_SESSION[ 'id' ];
     
-    //Lấy khóa học học viên đã đăng ký
-    $sql= "select * from dangkykhoahoc  INNER JOIN khoahoc ON dangkykhoahoc.maKhoaHoc = khoahoc.maKhoaHoc where maTK = '$maTK' ";
-    $resulthv = (new Connection())->select($sql);
-
     //Lấy khóa học giảng viện dạy
     $sqlgv= "select * from lop  INNER JOIN khoahoc ON lop.maKhoaHoc = khoahoc.maKhoaHoc where  maTK = '$maTK' ";
     $resultgv = (new Connection())->select($sqlgv);
@@ -37,7 +33,7 @@
 </head>
 
 <body class="ecommerce">
-    <nav class="navbar navbar-expand-lg fixed-top navbar-transparent nav-down" color-on-scroll="200">
+<nav class="navbar navbar-expand-lg fixed-top nav-down">
         <div class="container">
             <div class="navbar-translate">
                 <div class="navbar-header">
@@ -58,7 +54,7 @@
                         <a class="nav-link" href="register_course.php" data-scroll="true" href="javascript:void(0)">Đăng ký khóa học</a>
                     </li>
                     <li class="nav-item" style="<?php if($_SESSION['level']==1){ ?> display: none; <?php } ?>">
-                        <a class="nav-link" href="manage_course.php" data-scroll="true" href="javascript:void(0)">Quản lý khóa học</a>
+                        <a class="nav-link" href="manage_content_course.php" data-scroll="true" href="javascript:void(0)">Quản lý khóa học</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><?php echo $_SESSION['hoTen'] ?></a>
@@ -70,55 +66,19 @@
                 </ul>
             </div>
         </div>
-    </nav>
-    <div class="page-header" style="background-image: url('./assets/img/img.jpg');">
-        <div class="filter"></div>
-        <div class="content-center">
-            <div class="container text-center">
-            </div>
-        </div>
-    </div>
+</nav>
     <div class="wrapper">
-
-        <div class="section section-blog" <?php if($_SESSION['level']==2) echo "hidden" ?>>
-            <div class="container">
-                <div class="row">
-                <?php foreach($resulthv as $each): ?>
-                    <?php 
-                        // Lấy lớp HV
-                        $maKhoaHoc = $each[ 'maKhoaHoc' ];
-                        $sqllophv =  "Select * from dangkykhoahoc where maTK='$_SESSION[id]' and maKhoaHoc =  '$maKhoaHoc' ";
-                        $lopHVs = (new Connection())->select($sqllophv);
-                        $lophv = mysqli_fetch_array($lopHVs); 
-
-                    ?>
-                    <div class="col-md-4">
-                        <div class="card card-blog">
-                            <div class="card-image">
-                                <a href="course_details.php?maKhoaHoc=<?php echo $each['maKhoaHoc']; ?>&maLop=<?php echo $lophv['maLop']; ?>">
-                                    <img class="img img-raised" src="./admin/public/photos/khoahoc/<?php echo $each['anh']; ?>">
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-category text-info"><?php echo $each['tenKhoaHoc']; ?></h6>
-                                <h5 class="card-title">
-                                    <a href="#pablo"><?php echo $each['moTa']; ?></a>
-                                </h5>
-                                <hr>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $each['thoiGian']; ?> min read
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                                 
-                <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
         <div class="section section-blog" <?php if($_SESSION['level']==1) echo "hidden" ?>>
             <div class="container">
+            <h1></h1>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 style="text-align: center; color: red; margin-bottom: 20px; font-weight: 500;">Quản lý khóa học</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <h2></h2>
+                </div>
                 <div class="row">
                 <?php foreach($resultgv as $each): ?>
                     <?php 
@@ -132,7 +92,7 @@
                     <div class="col-md-4">
                         <div class="card card-blog">
                             <div class="card-image">
-                                <a href="course_details.php?maKhoaHoc=<?php echo $each['maKhoaHoc']; ?>&maLop=<?php echo $lopgv['maLop']; ?>">
+                                <a href="manage_content_course.php?maKhoaHoc=<?php echo $each['maKhoaHoc']; ?>&maLop=<?php echo $lopgv['maLop']; ?>">
                                     <img class="img img-raised" src="./admin/public/photos/khoahoc/<?php echo $each['anh']; ?>">
                                 </a>
                             </div>
