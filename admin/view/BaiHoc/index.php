@@ -98,10 +98,17 @@
                             <i class="uil-comments-alt"></i>
                             <span> Bài tập </span>
                         </a>
-                    </li> <li class="side-nav-item">
+                    </li> 
+                    <li class="side-nav-item">
                         <a href="index.php?controller=nopbaitap" class="side-nav-link">
                             <i class="uil-comments-alt"></i>
                             <span> Nộp bài tập </span>
+                        </a>
+                    </li>
+                    <li class="side-nav-item">
+                        <a href="index.php?controller=binhluan" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Bình luận </span>
                         </a>
                     </li>
                     <li class="side-nav-item">

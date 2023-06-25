@@ -105,6 +105,12 @@
                         </a>
                     </li>
                     <li class="side-nav-item">
+                        <a href="index.php?controller=binhluan" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Bình luận </span>
+                        </a>
+                    </li>
+                    <li class="side-nav-item">
                         <a href="index.php?controller=dangkykhoahoc" class="side-nav-link">
                             <i class="uil-comments-alt"></i>
                             <span> Đăng ký khóa học </span>
