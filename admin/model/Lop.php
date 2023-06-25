@@ -5,7 +5,8 @@ require "model/LopObject.php";
 
 class Lop{
     public function all(){
-        $sql = "select lop.*,khachhang.hoTen as tenGV from lop inner join taikhoan on lop.maTK=taikhoan.id inner join khachhang on taikhoan.maKH_TK=khachhang.maKH where taikhoan.level='2'";
+        $sql = "select lop.*,khachhang.hoTen as tenGV,khoahoc.tenKhoaHoc as tenKhoaHoc from lop inner join taikhoan on lop.maTK=taikhoan.id 
+        inner join khachhang on taikhoan.id=khachhang.maTK inner join khoahoc on lop.maKhoaHoc = khoahoc.maKhoaHoc  where taikhoan.level='2'";
         $result = (new Connection())->select($sql);
         $arr=[];
         foreach($result as $row){

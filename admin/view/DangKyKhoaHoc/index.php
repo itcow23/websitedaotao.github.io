@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Quản Lý Tài Khoản</title>
+    <title>Quản Lý Lớp Học</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
@@ -11,7 +11,6 @@
     <link rel="shortcut icon" href="assets/images/favicon.ico">
 
     <!-- App css -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
     <link href="layout/css/app-creative.min.css" rel="stylesheet" type="text/css" />
     <link href="layout/css/icons.min.css" rel="stylesheet" type="text/css" id="light-style" />
 
@@ -416,11 +415,10 @@
                                 </a>
 
                                 <!-- item-->
-                                <a href="?controller=admin_logout" class="dropdown-item notify-item">
+                                <a href="?controller=admin_logout" class="dropdown-item notify-item" >
                                     <i class="mdi mdi-logout mr-1"></i>
                                     <span>Logout</span>
                                 </a>
-
                             </div>
                         </li>
 
@@ -505,40 +503,37 @@
                                 <div class="card-body">
                                 <div class="container">
                                     <!-- Trigger the modal with a button -->
-                                    <button class="btn btn-success" data-toggle="modal" data-target="#create">
-                                        Thêm
-                                    </button>
+                                  
                                     <!-- Create-->
-                                    <?php include 'create.php'; ?>
+                                    
                                     <table class="table table-striped table-centered mb-0">
                                     <tr>
                                         <th>Mã</th>
-                                        <th>Email</th>
-                                        <th>Mật Khẩu</th>
-                                        <th>Level</th>
-                                        <th>Sửa</th>
+                                        <th>Tên Lớp Học</th>
+                                        <th>Tên Khóa Học</th>
+                                        <th>Tên Giảng Viên</th>
+                                        <th>Tên Học Viên</th>
+                                        <th>Ngày Đăng Ký</th>
                                         <th>Xóa</th>
                                     </tr>
                                     
                                     <?php foreach($arr as $each): ?>
                                         <tr>
-                                            <td><?php echo $each->get_id() ?></td>
-                                            <td><?php echo $each->get_email()  ?></td>
-                                            <td><?php echo $each->get_matKhau()  ?></td>
-                                            <td><?php echo $each->get_level()  ?></td>
+                                            <td><?php echo $each->get_maLop() ?></td>
+                                            <td><?php echo $each->get_tenLop() ?></td>
+                                            <td><?php echo $each->get_tenKhoaHoc() ?></td>
+                                            <td><?php echo $each->get_tenGV() ?></td>
+                                            <td><?php echo $each->get_tenHV() ?></td>
+                                            <td><?php echo $each->get_ngayDangKy() ?></td>
+                                           
                                             <td>
-                                                <button class="btn btn-info" data-toggle="modal" data-target="#maTK<?php echo $each->get_id() ?>">
-                                                    Sửa
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-danger" href="?action=delete&controller=taikhoan&maTK=<?php echo $each->get_id() ?>">
+                                                <a href="?action=delete&controller=dangkykhoahoc&maDangKy=<?php echo $each->get_maDangKy() ?>" class="btn btn-danger">
                                                     Xoá
                                                 </a>
                                             </td>
                                         </tr>
-                                        <?php include 'edit.php'; ?>
-                                    <?php endforeach; ?>
+                                        
+                                        <?php endforeach; ?>
                                     </table>
                                 </div>
                             </div>
@@ -590,21 +585,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="layout/js/vendor.min.js"></script>
     <script src="layout/js/app.min.js"></script>
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    <?php if(isset($_SESSION['code'])){?>
-    <script type="text/javascript">
-    $(document).ready(function() {
-        swal({
-            title:  '<?php echo $_SESSION['status']; ?>',
-            icon:  '<?php echo $_SESSION['code']; ?>',
-            button: "Ok",
-            timer: 2000
-        });
+<?php if(isset($_SESSION['code'])){?>
+<script type="text/javascript">
+$(document).ready(function() {
+    swal({
+        title:  '<?php echo $_SESSION['status']; ?>',
+        icon:  '<?php echo $_SESSION['code']; ?>',
+        button: "Ok",
+        timer: 2000
     });
+});
 </script>
 <?php unset($_SESSION['code']);
-      unset($_SESSION['status']);
+  unset($_SESSION['status']);
 } ?>
 
 </body>

@@ -12,7 +12,6 @@ class KhachHangController{
     public function store(){
         require 'model/KhachHang.php';
         (new KhachHang())->create($_POST);
-
         $_SESSION['code'] = "success";
         $_SESSION['status'] = "Thêm thành công";
         header('location: index.php?controller=khachhang');

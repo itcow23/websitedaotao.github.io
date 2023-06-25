@@ -10,6 +10,7 @@ class BaiHocObject{
     private $tenKhoaHoc;
     private $maKhoaHoc;
     private $maNoiDung;
+    private $tenLop;
 
     public function __construct($row){
         $this->maBaiHoc = $row['maBaiHoc'] ?? '';
@@ -21,6 +22,7 @@ class BaiHocObject{
         $this->tenKhoaHoc = $row['tenKhoaHoc'] ?? " ";
         $this->maKhoaHoc = $row['maKhoaHoc'];
         $this->maNoiDung = $row['maNoiDung'];
+        $this->tenLop = $row['tenLop'];
     }
 
     public function get_maBaiHoc(){
@@ -76,5 +78,11 @@ class BaiHocObject{
     }
     public function set_maNoiDung($var){
         $this->maNoiDung = $var;
+    }
+    public function get_tenLop() {
+        return $this->tenLop;
+    }
+    public function set_tenLop($var) {
+        $this->tenLop = $var;
     }
 }

@@ -15,6 +15,16 @@ class TaiKhoan {
 
         return $arr;
     }
+    public function get_GV(){
+        $sql = "select * from TAIKHOAN where level='2'";
+        $result = (new Connection())->select($sql);
+        $arr = [];
+        foreach ($result as $row) {
+            $object = new TaiKhoanObject($row);
+            $arr[] = $object;
+        }
+        return $arr;
+    }
     public function create($params){
         $object=new TaiKhoanObject($params);
         $sql = "select * from TAIKHOAN where email = '" . $object->get_email()."' ";
@@ -36,17 +46,15 @@ class TaiKhoan {
             $_SESSION['email'] = $object->get_email();
             $_SESSION['matKhau'] = $object->get_matKhau();
             $_SESSION['level'] = $object->get_level();
-            $_SESSION['maKH_TK'] = $object->get_maKH_TK();
             $_SESSION['status'] = "Thêm không thành công";
             $_SESSION['code'] = "error";
             header("location: index.php?controller=taikhoan");
             exit();
      }else
         {
-            $sql = "insert into taikhoan(email,matKhau,maKH_TK,level) 
+            $sql = "insert into taikhoan(email,matKhau,level) 
             values('" . $object->get_email()."',
             '" . $object->get_matKhau()."',
-            '" . $object->get_maKH_TK()."',
             '" . $object->get_level()."')";
             (new Connection())->excute($sql);
         }
@@ -71,7 +79,7 @@ class TaiKhoan {
      else{
          $sql = "update taikhoan  set email='".$object->get_email()."', 
          matKhau =  '".$object->get_matKhau()."', 
-         maKH_TK='".$object->get_maKH_TK()."', level='".$object->get_level()."' 
+         level='".$object->get_level()."' 
          where id='".$object->get_id()."'";
          (new Connection())->excute($sql);
      }

@@ -23,6 +23,10 @@
     $sql5= "Select * from noidungkhoahoc where maKhoaHoc='$maKhoaHoc' and maNoiDung='$maNoiDung'";
     $tennoidung = (new Connection())->select($sql5);
     $infonoidung = mysqli_fetch_array($tennoidung);
+
+    $sql12= "Select * from lop where maKhoaHoc='$maKhoaHoc' and maLop='$maLop'";
+    $lops = (new Connection())->select($sql12);
+    $lop = mysqli_fetch_array($lops);
 ?>
 <!doctype html>
 <html lang="en">
@@ -89,7 +93,7 @@
                     <div class="col-md-4">
                         <div class="product-details">
                             <a href="#">
-                                <h3 class="title"><?php echo $khoahoc['tenKhoaHoc'] ?></h3>
+                                <h3 class="title"><?php echo $khoahoc['tenKhoaHoc'] ." - Lớp " . $lop['tenLop']?></h3>
                             </a>
                         </div>
                         <?php foreach($noidungs as $noidung): ?>

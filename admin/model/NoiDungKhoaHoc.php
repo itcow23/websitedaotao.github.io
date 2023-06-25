@@ -4,8 +4,8 @@ require 'model/NoiDungKhoaHocObject.php';
 
 class NoiDungKhoaHoc {
     public function all() {
-        $sql = "Select noidungkhoahoc.*, khoahoc.tenKhoaHoc as tenKhoaHoc
-        from noidungkhoahoc inner join khoahoc on khoahoc.maKhoaHoc=noidungkhoahoc.maKhoaHoc";
+        $sql = "Select noidungkhoahoc.*, khoahoc.tenKhoaHoc as tenKhoaHoc,lop.tenLop as tenLop
+        from noidungkhoahoc inner join khoahoc on khoahoc.maKhoaHoc=noidungkhoahoc.maKhoaHoc  inner join lop on lop.maLop=noidungkhoahoc.maLop";
         $result = (new Connection())->select($sql);
         $arr = [];
         foreach ($result as $row) {

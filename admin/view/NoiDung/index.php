@@ -94,7 +94,23 @@
                             <span> Bài Học </span>
                         </a>
                     </li>
-
+                    <li class="side-nav-item">
+                        <a href="index.php?controller=baitap" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Bài tập </span>
+                        </a>
+                    </li> <li class="side-nav-item">
+                        <a href="index.php?controller=nopbaitap" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Nộp bài tập </span>
+                        </a>
+                    </li>
+                    <li class="side-nav-item">
+                        <a href="index.php?controller=dangkykhoahoc" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Đăng ký khóa học </span>
+                        </a>
+                    </li>
                     <li class="side-nav-item">
                         <a href="index.php?controller=lop" class="side-nav-link">
                             <i class="uil-comments-alt"></i>
@@ -499,6 +515,7 @@
                                             <th>Mã</th>
                                             <th>Tên Khoá Học</th>
                                             <th>Nội Dung Khóa Học</th>
+                                            <th>Tên lớp</th>
                                             <th>Sửa</th>
                                             <th>Xóa</th>
                                         </tr>
@@ -508,6 +525,7 @@
                                             <td><?php echo $each->get_maNoiDung() ?></td>
                                             <td><?php echo $each->get_tenKhoaHoc() ?></td>
                                             <td><?php echo $each->get_noiDungKhoaHoc()  ?></td>
+                                            <td><?php echo $each->get_tenLop() ?></td>
                                             <td>
                                                 <button class="btn btn-success" data-toggle="modal" data-target="#maNoiDung<?php echo $each->get_maNoiDung() ?>">
                                                     Sửa

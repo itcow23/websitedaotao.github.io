@@ -5,12 +5,14 @@ class NoiDungKhoaHocObject {
     private $maKhoaHoc;
     private $noiDungKhoaHoc;
     private $tenKhoaHoc;
+    private $tenLop;
 
     public function __construct($row) {
         $this->maNoiDung = $row['maNoiDung'] ?? '';
         $this->maKhoaHoc = $row['maKhoaHoc'] ?? " ";
         $this->noiDungKhoaHoc = $row['noiDungKhoaHoc'];
         $this->tenKhoaHoc = $row['tenKhoaHoc'] ?? " ";
+        $this->tenLop = $row['tenLop'] ?? " ";
     }
 
     public function get_maNoiDung() {
@@ -37,5 +39,11 @@ class NoiDungKhoaHocObject {
     }
     public function set_tenKhoaHoc($var) {
         $this->tenKhoaHoc = $var;
+    }
+    public function get_tenLop() {
+        return $this->tenLop;
+    }
+    public function set_tenLop($var) {
+        $this->tenLop = $var;
     }
 }

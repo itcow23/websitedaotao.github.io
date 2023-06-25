@@ -7,6 +7,10 @@ require "controller/BaiHocController.php";
 require "controller/AdminController.php";
 require "controller/NoiDungKhoaHocController.php";
 require "controller/LopController.php";
+require "controller/DangKyKhoaHocController.php";
+require "controller/BinhLuanController.php";
+require "controller/NopBaiTapController.php";
+require "controller/BaiTapController.php";
 $action = $_GET['action'] ?? 'index';
 $controller = $_GET['controller'] ?? 'login';
 
@@ -174,6 +178,62 @@ switch ($controller){
                 break;
             }
         break;
+    case 'dangkykhoahoc':
+        (new AdminController())->checkadmin();
+        switch ($action) {
+            case 'index':
+                (new DangKyKhoaHocController())->index();
+                break;
+            case 'delete':
+                (new DangKyKhoaHocController())->delete();
+                break;
+            default:
+                echo 'What are you doing??';
+                break;
+            }
+            break;
+    case 'binhluan':
+        (new AdminController())->checkadmin();
+        switch ($action) {
+            case 'index':
+                (new BinhLuanController())->index();
+                break;
+            case 'delete':
+                (new BinhLuanController())->delete();
+                break;
+            default:
+                echo 'What are you doing??';
+                break;
+                }
+        break;
+        case 'baitap':
+            (new AdminController())->checkadmin();
+            switch ($action) {
+                case 'index':
+                    (new BaiTapController())->index();
+                    break;
+                case 'delete':
+                    (new BaiTapController())->delete();
+                    break;
+                default:
+                    echo 'What are you doing??';
+                    break;
+                    }
+            break;
+            case 'nopbaitap':
+                (new AdminController())->checkadmin();
+                switch ($action) {
+                    case 'index':
+                        (new NopBaiTapController())->index();
+                        break;
+                    case 'delete':
+                        (new NopBaiTapController())->delete();
+                        break;
+                    default:
+                        echo 'What are you doing??';
+                        break;
+                        }
+                break;
     default:
         echo 'What are you doing?';
         break;

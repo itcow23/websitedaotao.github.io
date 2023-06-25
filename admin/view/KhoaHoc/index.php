@@ -94,7 +94,23 @@
                             <span> Bài Học </span>
                         </a>
                     </li>
-
+                    <li class="side-nav-item">
+                        <a href="index.php?controller=baitap" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Bài tập </span>
+                        </a>
+                    </li> <li class="side-nav-item">
+                        <a href="index.php?controller=nopbaitap" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Nộp bài tập </span>
+                        </a>
+                    </li>
+                    <li class="side-nav-item">
+                        <a href="index.php?controller=dangkykhoahoc" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Đăng ký khóa học </span>
+                        </a>
+                    </li>
                     <li class="side-nav-item">
                         <a href="index.php?controller=lop" class="side-nav-link">
                             <i class="uil-comments-alt"></i>

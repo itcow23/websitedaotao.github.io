@@ -4,12 +4,17 @@
     $maKhoaHoc = $_GET['maKhoaHoc'];
     $maLop  = $_GET['maLop'];
 
+    $sql2= "Select * from lop inner join khoahoc on khoahoc.maKhoaHoc = lop.maKhoaHoc where maLop = '$maLop' and khoahoc.maKhoaHoc = '$maKhoaHoc'";
+    $result = (new Connection())->select($sql2);
+    $item = mysqli_fetch_array($result);
+
     $sql= "Select * from khoahoc where  maKhoaHoc = '$maKhoaHoc'";
     $khoahocs = (new Connection())->select($sql);
     $khoahoc = mysqli_fetch_array($khoahocs);
 
-    $sql1= "Select *,khoahoc.tenKhoaHoc,lop.tenLop from noidungkhoahoc inner join khoahoc on  khoahoc.maKhoaHoc=noidungkhoahoc.maKhoaHoc inner join lop on  lop.maLop=noidungkhoahoc.maLop where noidungkhoahoc.maKhoaHoc = '$maKhoaHoc' and noidungkhoahoc.maLop = '$maLop'";
+    $sql1= "Select noidungkhoahoc.*,khoahoc.tenKhoaHoc,lop.tenLop from noidungkhoahoc inner join khoahoc on  khoahoc.maKhoaHoc=noidungkhoahoc.maKhoaHoc inner join lop on  lop.maLop=noidungkhoahoc.maLop where noidungkhoahoc.maKhoaHoc = '$maKhoaHoc' and noidungkhoahoc.maLop = '$maLop'";
     $noidungs = (new Connection())->select($sql1);
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -75,7 +80,7 @@
                 <h1></h1>
                 <div class="row">
                     <div class="col-md-12">
-                        <h2 style="text-align: center; color: red; margin-bottom: 20px; font-weight: 500;">Quản lý nội dung</h2>
+                        <h2 style="text-align: center; color: red; margin-bottom: 20px; font-weight: 500;">Quản lý nội dung <?php echo " - Khóa" . $item['tenKhoaHoc'] ." - Lớp ".$item['tenLop'] ?></h2>
                     </div>
                 </div>
                 <div class="row">

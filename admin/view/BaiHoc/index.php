@@ -93,7 +93,23 @@
                             <span> Bài Học </span>
                         </a>
                     </li>
-
+                    <li class="side-nav-item">
+                        <a href="index.php?controller=baitap" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Bài tập </span>
+                        </a>
+                    </li> <li class="side-nav-item">
+                        <a href="index.php?controller=nopbaitap" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Nộp bài tập </span>
+                        </a>
+                    </li>
+                    <li class="side-nav-item">
+                        <a href="index.php?controller=dangkykhoahoc" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Đăng ký khóa học </span>
+                        </a>
+                    </li>
                     <li class="side-nav-item">
                         <a href="index.php?controller=lop" class="side-nav-link">
                             <i class="uil-comments-alt"></i>
@@ -501,6 +517,7 @@
                                         <th>Tiêu để</th>
                                         <th>Mô tả</th>
                                         <th>Video</th>
+                                        <th>Tên Lớp</th>
                                         <th>Sửa</th>
                                         <th>Xóa</th>
                                     </tr>
@@ -514,6 +531,7 @@
                                             <td><?php echo $each->get_tieuDe() ?></td>
                                             <td><?php  echo $each->get_moTa()  ?></td>
                                             <td><?php echo $each->get_video() ?></td>
+                                            <td><?php echo $each->get_tenLop() ?></td>
                                             <td>
                                                 <button class="btn btn-info" data-toggle="modal" data-target="#maBaiHoc<?php echo $each->get_maBaiHoc() ?>">
                                                     Sửa

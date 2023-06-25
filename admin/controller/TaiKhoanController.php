@@ -16,7 +16,7 @@ class TaiKhoanController {
         require 'model/TaiKhoan.php';
         (new TaiKhoan())->create($_POST);
 
-        $_SESSION['code'] = "info";
+        $_SESSION['code'] = "success";
         $_SESSION['status'] = "Thêm thành công";
         header('location: index.php?controller=taikhoan');
     }

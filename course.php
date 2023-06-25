@@ -87,7 +87,7 @@
                     <?php 
                         // Lấy lớp HV
                         $maKhoaHoc = $each[ 'maKhoaHoc' ];
-                        $sqllophv =  "Select * from dangkykhoahoc where maTK='$_SESSION[id]' and maKhoaHoc =  '$maKhoaHoc' ";
+                        $sqllophv =  "Select * from lop where maTK='$maTK' and maKhoaHoc =  '$maKhoaHoc' ";
                         $lopHVs = (new Connection())->select($sqllophv);
                         $lophv = mysqli_fetch_array($lopHVs); 
 
@@ -102,7 +102,7 @@
                             <div class="card-body">
                                 <h6 class="card-category text-info"><?php echo $each['tenKhoaHoc']; ?></h6>
                                 <h5 class="card-title">
-                                    <a href="#pablo"><?php echo $each['moTa']; ?></a>
+                                    <a href="#pablo"><?php echo "Lớp ". $lophv['tenLop']; ?></a>
                                 </h5>
                                 <hr>
                                 <div class="card-footer">
@@ -139,7 +139,7 @@
                             <div class="card-body">
                                 <h6 class="card-category text-info"><?php echo $each['tenKhoaHoc']; ?></h6>
                                 <h5 class="card-title">
-                                    <a href="#pablo"><?php echo $each['moTa']; ?></a>
+                                    <a href="#pablo"><?php echo "Lớp ". $lopgv['tenLop']; ?></a>
                                 </h5>
                                 <hr>
                                 <div class="card-footer">

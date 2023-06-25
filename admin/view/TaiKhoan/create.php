@@ -1,7 +1,3 @@
-<?php
-    require 'model/KhachHang.php';
-    $khachhangs = (new KhachHang())->all();
-?>
 <div class="modal fade" id="create" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -20,17 +16,7 @@
                         <label>Mật Khẩu</label>
                         <input type="text" name="matKhau" value="<?php if(isset($_SESSION['matKhau'])) echo $_SESSION['matKhau']; unset($_SESSION['matKhau']);?>" class="form-control" placeholder="Nhập mật khẩu">
                         <span style="color: red;"><?php if(isset($_SESSION['error_mk'])) echo $_SESSION['error_mk']; unset($_SESSION['error_mk']); ?></span>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label>Tên khách hàng</label>
-                        <select class="custom-select mb-3" name="maKH_TK">
-                            <?php foreach($khachhangs as $khachhang): ?>                           
-                                <option value="<?php echo $khachhang->get_maKH() ?>" <?php if(isset($_SESSION['maKH_TK']) && $_SESSION['maKH_TK'] == $khachhang->get_maKH()) echo "selected";  unset($_SESSION['maKH_TK']);?>>
-                                    <?php echo $khachhang->get_hoTen() ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>   
+                    </div>  
                     <div class="form-group">
                         <label> Level</label>
                         <div class="form-check">

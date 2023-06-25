@@ -1,20 +1,26 @@
 <?php
 
-class LopObject{
+class DangKyKhoaHocObject{
+    private $maDangKy;
+    private $maKhoaHoc;
+    private $tenKhoaHoc;
     private $maLop;
     private $tenLop;
-    private $maKhoaHoc;
-    private $maTK;
     private $tenGV;
-    private $tenKhoaHoc;
+    private $tenHV;
+    private $maTK;
+    private $ngayDangKy;
 
     public function __construct($row){
+        $this->maDangKy = $row['maDangKy'] ?? '';
         $this->maLop = $row['maLop'] ?? '';
         $this->tenLop = $row['tenLop'];
         $this->maKhoaHoc = $row['maKhoaHoc'];
+        $this->tenKhoaHoc = $row['tenKhoaHoc'] ?? '';
         $this->maTK = $row['maTK'];
         $this->tenGV = $row['tenGV'] ?? '';
-        $this->tenKhoaHoc = $row['tenKhoaHoc'] ?? '';
+        $this->tenHV = $row['tenHV'] ?? '';
+        $this->ngayDangKy = $row['ngayDangKy'] ?? '';
     }
 
     public function get_maLop(){
@@ -53,5 +59,23 @@ class LopObject{
     }
     public function set_tenKhoaHoc($var){
         $this->tenKhoaHoc = $var;
+    }
+    public function get_tenHV(){
+        return $this->tenHV;
+    }
+    public function set_tenHV($var){
+        $this->tenHV = $var;
+    }
+    public function get_maDangKy(){
+        return $this->maDangKy;
+    }
+    public function set_maDangKy($var){
+        $this->maDangKy = $var;
+    }
+    public function get_ngayDangKy(){
+        return $this->ngayDangKy;
+    }
+    public function set_ngayDangKy($var){
+        $this->ngayDangKy = $var;
     }
 }

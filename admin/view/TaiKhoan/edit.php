@@ -15,19 +15,6 @@
                     <div class="form-group col-md-12">
                         <label>Mật Khẩu</label>
                         <input type="text" name="matKhau" value="<?php echo $each->get_matKhau(); ?>" class="form-control" placeholder="Nhập mật khẩu">
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label>Tên khách hàng</label>
-                        <input type="hidden" name="maKH_TK" value='<?php echo $each->get_maKH_TK()?>'>
-                        <select class="custom-select mb-3" disabled = "true">
-                            <?php foreach($khachhangs as $khachhang): ?>                           
-                                <option value="<?php echo $khachhang->get_maKH() ?>"
-                                <?php if($each->get_maKH_TK()===$khachhang->get_maKH()) echo "selected"?>
-                                >
-                                    <?php echo $khachhang->get_hoTen() ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
                     </div>   
                     <div class="form-group">
                         <label> Level</label>

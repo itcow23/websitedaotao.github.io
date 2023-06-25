@@ -130,12 +130,12 @@
 <?php
     $maKhoaHoc_lop =  $each['maKhoaHoc'];
     $sql = "SELECT lop.*,khachhang.hoTen FROM lop inner join taikhoan on lop.maTK = taikhoan.id
-    inner join khachhang on taikhoan.maKH_TK = khachhang.maKH WHERE maKhoaHoc = '$maKhoaHoc_lop'";
+    inner join khachhang on taikhoan.id = khachhang.maTK WHERE maKhoaHoc = '$maKhoaHoc_lop'";
     $lops = (new Connection())->select($sql);
 ?>
 <!-- modal đăng ký khóa học-->
 <div class="modal fade" id="create<?php echo $each['maKhoaHoc'] ?>" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Đăng ký <?php echo $each['tenKhoaHoc'] ?></h4>
@@ -147,9 +147,17 @@
                         <tr>
                             <th>Tên Lớp</th>
                             <th>Giáo viên</th>
+                            <th>Số Lượng</th>
                             <th>Đăng ký</th>
                         </tr>
                         <?php foreach ($lops as $lop): ?>
+                            <?php
+                                $malop =  $lop['maLop'];
+                                $maKhoaHoc = $lop['maKhoaHoc'];
+                                $sql123 = "select * from dangkykhoahoc where maLop = '$malop' and maKhoaHoc = '$maKhoaHoc'";
+                                $sum = (new Connection())->select($sql123);
+                                $num_sum = mysqli_num_rows($sum);
+                             ?>
                             <form action="process_register.php" method="POST">
                              <tr>
                                  <td>
@@ -161,6 +169,9 @@
                                  </td>
                                  <td>
                                  <input type="text" name="tenGV" value="<?php echo $lop['hoTen'] ?>" readonly style="border: none; outline:none;">
+                                 </td>
+                                 <td>
+                                    <input type="text" value="<?php echo $num_sum . "/60" ?>" readonly style="border: none; outline:none;">
                                  </td>
                                  <td>
                                      <button type="submit" class="btn btn-primary">Đăng ký</button>

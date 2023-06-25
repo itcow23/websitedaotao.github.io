@@ -9,6 +9,10 @@
     from baihoc inner join noidungkhoahoc on noidungkhoahoc.maNoiDung=baihoc.maNoiDung
     inner join khoahoc on khoahoc.maKhoaHoc=noidungkhoahoc.maKhoaHoc inner join lop on baihoc.maLop = lop.maLop  where baihoc.maKhoaHoc = '$maKhoaHoc' and baihoc.maLop = '$maLop'";
     $result = (new Connection())->select($sql);
+    
+    $sql2= "Select * from lop inner join khoahoc on khoahoc.maKhoaHoc = lop.maKhoaHoc where maLop = '$maLop' and khoahoc.maKhoaHoc = '$maKhoaHoc'";
+    $result1 = (new Connection())->select($sql2);
+    $item = mysqli_fetch_array($result1);
 
     $sql1 =  "select * from khoahoc  where maKhoaHoc = '$maKhoaHoc'";
     $khoahocs = (new Connection())->select($sql1);
@@ -83,7 +87,7 @@
                 <h1></h1>
                 <div class="row">
                     <div class="col-md-12">
-                        <h2 style="text-align: center; color: red; margin-bottom: 20px; font-weight: 500;">Quản lý bài học</h2>
+                        <h2 style="text-align: center; color: red; margin-bottom: 20px; font-weight: 500;">Quản lý bài học <?php echo " - Khóa" . $item['tenKhoaHoc'] ." - Lớp ".$item['tenLop'] ?></h2>
                     </div>
                 </div>
                 <div class="row">

@@ -94,6 +94,23 @@
                         </a>
                     </li>
                     <li class="side-nav-item">
+                        <a href="index.php?controller=baitap" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Bài tập </span>
+                        </a>
+                    </li> <li class="side-nav-item">
+                        <a href="index.php?controller=nopbaitap" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Nộp bài tập </span>
+                        </a>
+                    </li>
+                    <li class="side-nav-item">
+                        <a href="index.php?controller=dangkykhoahoc" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Đăng ký khóa học </span>
+                        </a>
+                    </li>
+                    <li class="side-nav-item">
                         <a href="index.php?controller=lop" class="side-nav-link">
                             <i class="uil-comments-alt"></i>
                             <span> Lớp Học </span>
@@ -495,9 +512,8 @@
                                     <tr>
                                         <th>Mã</th>
                                         <th>Tên Lớp Học</th>
+                                        <th>Tên Khóa Học</th>
                                         <th>Tên Giảng Viên</th>
-                                        <th>Mã Khóa Học</th>
-                                        <th>Mã tài khoản</th>
                                         <th>Sửa</th>
                                         <th>Xóa</th>
                                     </tr>
@@ -506,9 +522,8 @@
                                         <tr>
                                             <td><?php echo $each->get_maLop() ?></td>
                                             <td><?php echo $each->get_tenLop() ?></td>
+                                            <td><?php echo $each->get_tenKhoaHoc() ?></td>
                                             <td><?php echo $each->get_tenGV() ?></td>
-                                            <td><?php echo $each->get_maKhoaHoc()  ?></td>
-                                            <td><?php echo $each->get_maTK() ?></td>
                                             <td>
                                                 <button class="btn btn-info" data-toggle="modal" data-target="#maLop<?php echo $each->get_maLop() ?>">
                                                     Sửa

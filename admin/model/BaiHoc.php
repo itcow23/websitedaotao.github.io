@@ -5,9 +5,9 @@ require "model/BaiHocObject.php";
 
 class BaiHoc{
     public function all(){
-        $sql = "select baihoc.*, noidungkhoahoc.noiDungKhoaHoc as noiDungKhoaHoc, khoahoc.tenKhoaHoc as tenKhoaHoc
+        $sql = "select baihoc.*, noidungkhoahoc.noiDungKhoaHoc as noiDungKhoaHoc, khoahoc.tenKhoaHoc as tenKhoaHoc,lop.tenLop as tenLop
         from baihoc inner join noidungkhoahoc on noidungkhoahoc.maNoiDung=baihoc.maNoiDung
-        inner join khoahoc on khoahoc.maKhoaHoc=noidungkhoahoc.maKhoaHoc";
+        inner join khoahoc on khoahoc.maKhoaHoc=noidungkhoahoc.maKhoaHoc  inner join lop on lop.maLop=baihoc.maLop";
         $result = (new Connection())->select($sql);
         $arr=[];
         foreach($result as $row){

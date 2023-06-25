@@ -3,7 +3,7 @@ require "./admin/model/connect.php";
 $email = $_GET[ 'email' ];
 $matKhau = $_GET[ 'matKhau' ];
 
-$sql= "Select * from taikhoan inner join khachhang on taikhoan.maKH_TK = khachhang.maKH
+$sql= "Select * from taikhoan inner join khachhang on taikhoan.id = khachhang.maTK
  where email='$email' and matKhau='$matKhau'";
 $result =  (new Connection())->select($sql);
 $num_row = mysqli_num_rows($result);
@@ -13,8 +13,6 @@ if ($num_row == 1) {
     $_SESSION[ 'id' ] = $each['id'];
     $_SESSION[ 'hoTen' ] = $each['hoTen'];
     $_SESSION[ 'level' ] = $each[ 'level' ];
-    $_SESSION[ 'maKH_TK' ] = $each[ 'maKH_TK' ];
-
     header( 'Location:index.php' );
 }
 else {

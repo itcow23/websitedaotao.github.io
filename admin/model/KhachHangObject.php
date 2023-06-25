@@ -8,7 +8,10 @@ class KhachHangObject{
     private $soDienThoai;
     private $diaChi;
     private $maTK;
-    private $level;
+    private $avatar;
+    private $photo;
+    private $photo_new;
+    private $photo_old;
 
     public function __construct($row){
         $this->maKH = $row['maKH'] ?? '';
@@ -17,6 +20,12 @@ class KhachHangObject{
         $this->gioiTinh = $row['gioiTinh'];
         $this->soDienThoai = $row['soDienThoai'];
         $this->diaChi = $row['diaChi'];
+        $this->maTK = $row['maTK'];
+        $this->avatar = $row['avatar'];
+        $this->photo_new = $_FILES['avatar_new'] ?? "";
+        $this->photo_old = $row['avatar_old'] ?? " ";
+        $this->photo = $_FILES['avatar'] ?? " ";
+
     }
 
     public function get_maKH(){
@@ -64,5 +73,22 @@ class KhachHangObject{
     }
     public function set_diaChi($var){
         $this->diaChi = $var;
+    }
+    public function get_avatar(){
+        return $this->avatar;
+    }
+    public function set_avatar($var){
+        $this->avatar = $var;
+    }
+    public function get_photo(){
+        return $this->photo;
+    }
+    public function get_photo_new()
+    {
+        return $this->photo_new;
+    }
+    public function get_photo_old()
+    {
+        return $this->photo_old;;
     }
 }

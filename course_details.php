@@ -10,6 +10,10 @@
 
     $sql3= "Select * from noidungkhoahoc where maKhoaHoc='$maKhoaHoc' and  maLop='$maLop'";
     $noidungs = (new Connection())->select($sql3);
+
+    $sql2= "Select * from lop where maKhoaHoc='$maKhoaHoc' and maLop='$maLop'";
+    $lops = (new Connection())->select($sql2);
+    $lop = mysqli_fetch_array($lops);
     
 ?>
 <!doctype html>
@@ -82,7 +86,7 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <button class="btn btn-danger" style="margin-top: 10px;">Học ngay</button>
+                        
                     </div>
                     <div class="col-md-8">
                         <div class="product-details">
@@ -90,7 +94,7 @@
                                 <h3 class="title"><?php echo $khoahoc['tenKhoaHoc'] ?></h3>
                             </a>
                             <p class="description">
-                            <?php echo $khoahoc['moTa'] ?>
+                            <?php echo "Lớp ".$lop['tenLop'] ?>
                             </p>
 
                             <span class="price"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $khoahoc['thoiGian'] ?> min</span>
