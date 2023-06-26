@@ -13,6 +13,7 @@ if ($num_row == 1) {
     $_SESSION[ 'id' ] = $each['id'];
     $_SESSION[ 'hoTen' ] = $each['hoTen'];
     $_SESSION[ 'level' ] = $each[ 'level' ];
+    $_SESSION[ 'maKH' ] = $each[ 'maKH' ];
     header( 'Location:index.php' );
 }
 else {

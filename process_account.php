@@ -3,7 +3,7 @@ require  "check_login.php";
 require "./admin/model/connect.php";
 
 session_start( );
-$maKH = $_SESSION['maKH_TK'];
+$maKH = $_SESSION['maKH'];
 $soDienThoai = $_POST['soDienThoai'];
 $diaChi =  $_POST['diaChi'];
 $test_sdt = '/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/';
@@ -16,7 +16,7 @@ if( !preg_match($test_sdt, $soDienThoai) ){
     if($_FILES['avatar']['size'] > 0){
     
         $avatar = $_FILES['avatar'];
-        $folder =  "assets/avatar/";
+        $folder =  "./admin/public/photos/khachhang/";
         $file_extension = explode('.', $avatar['name'])[1];
         $file_name = time() . '.' . $file_extension;
         $path_file = $folder . $file_name;

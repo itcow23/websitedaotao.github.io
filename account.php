@@ -2,13 +2,13 @@
     require "check_login.php";
     require "./admin/model/connect.php"; 
 
-    $maKH= $_SESSION['maKH_TK'];
+    $maKH= $_SESSION['maKH'];
     $sql= "Select * from khachhang where maKH='$maKH'";
     $result =  (new Connection())->select($sql);
     $user =  mysqli_fetch_array($result);
 
-    $avatar = "assets/avatar/".$user['avatar'];
-    $noavatar =  "assets/avatar/noavatar.png";
+    $avatar = "./admin/public/photos/khachhang/".$user['avatar'];
+    $noavatar =  "./admin/public/photos/khachhang/noavatar.png";
 ?>
 <!doctype html>
 <html lang="en">
@@ -85,7 +85,7 @@
                     <?php } ?>
                         <form class="settings-form" action="process_account.php" method="POST" enctype="multipart/form-data">
                             <div class="fileinput-new img-no-padding" style="margin-left: 140px; margin-bottom:40px;">
-                                <img class="img-circle img-no-padding img-responsive" src="<?php if(empty($user['avatar'])) echo $noavatar; else echo $avatar;  ?>" alt="Avatar" style="max-block-size:200px;">
+                                <img class="img-circle img-no-padding img-responsive" src="<?php if(empty($user['avatar'])) {echo $noavatar;} else {echo $avatar; } ?>" alt="Avatar" style="max-block-size:200px;">
                             </div>
                             <div class="form-group">
                                 <label>Họ Tên</label>
